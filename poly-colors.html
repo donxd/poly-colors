@@ -1,0 +1,68 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="poly-colors">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      div {
+        width: 300px;
+        height: 100px;
+        background-color: orange;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      div.fix {
+        background-color: var(--theme-color);
+      }
+    </style>
+    <div id="container">
+      <h2>Hello [[block]]!</h2>
+      <button id="blocks" on-click="blockElement">Block</button>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `poly-colors`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class PolyColors extends Polymer.Element {
+      static get is() { return 'poly-colors'; }
+      static get properties() {
+        return {
+          block: {
+            type: Boolean,
+            value: false
+          }
+        };
+      }
+      ready () {
+        super.ready();
+        if (this.block) {
+          this.$.container.classList.add('fix');
+        }
+      }
+      blockElement (event) {
+        if (this.block) {
+          this.block=false;
+          this.$.blocks.innerText="Block"
+          this.$.container.classList.remove('fix');
+        } else {
+          this.block=true;
+          this.$.blocks.innerText="Unblock"
+          this.$.container.classList.add('fix');
+        }
+      }
+    }
+
+    window.customElements.define(PolyColors.is, PolyColors);
+  </script>
+</dom-module>
